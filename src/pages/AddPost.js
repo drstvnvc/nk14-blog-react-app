@@ -10,6 +10,7 @@ function AddPost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let data = null;
+
     if (id) {
       data = await postService.edit(id, newPost);
     } else {
@@ -42,7 +43,7 @@ function AddPost() {
 
   return (
     <div>
-      <h2>Add new</h2>
+      <h2>{id ? 'Edit' : 'Add new'} </h2>
       <form
         style={{ display: 'flex', flexDirection: 'column', width: 300 }}
         onSubmit={handleSubmit}
