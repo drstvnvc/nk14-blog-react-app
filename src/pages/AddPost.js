@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import PostService from '../services/PostService';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import postService from '../services/PostService';
 
 function AddPost() {
   const [newPost, setNewPost] = useState({ title: '', text: '' });
   const history = useHistory();
+  const { id } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const data = await PostService.add(newPost);
+    let data = null;
+    if (id) {
+      data = await postService.edit(id, newPost);
+    } else {
+      data = await postService.add(newPost);
+    }
 
     if (!data) {
       alert('The new post is not created');
@@ -22,6 +27,18 @@ function AddPost() {
   const handleReset = () => {
     setNewPost({ title: '', text: '' });
   };
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      const { id: _, createdAt, ...restData } = await postService.get(id);
+
+      setNewPost(restData);
+    };
+
+    if (id) {
+      fetchPost();
+    }
+  }, [id]);
 
   return (
     <div>
@@ -48,7 +65,7 @@ function AddPost() {
             setNewPost({ ...newPost, text: target.value })
           }
         />
-        <button>Add</button>
+        <button>{id ? 'Edit' : 'Add'}</button>
         <button type='button' onClick={handleReset}>
           Reset
         </button>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import postService from '../services/PostService';
 
 function AppPosts() {
   const [posts, setPosts] = useState([]);
-
+  const history = useHistory();
   useEffect(() => {
     const fetchPosts = async () => {
       const data = await postService.getAll();
@@ -20,7 +20,13 @@ function AppPosts() {
       {posts.map((post) => (
         <div
           key={post.id}
-          style={{ border: '3px solid orange', width: 300, marginTop: 15 }}
+          style={{
+            border: '3px solid orange',
+            width: 300,
+            marginTop: 15,
+            display: 'flex',
+            flexDirection: 'column',
+          }}
         >
           <p>
             <strong>Title:</strong> {post.title}
@@ -29,6 +35,7 @@ function AppPosts() {
             <strong>Text:</strong> {post.text}
           </p>
           <Link to={`/posts/${post.id}`}>View post</Link>
+          <button onClick={() => history.push(`/edit/${post.id}`)}>Edit</button>
         </div>
       ))}
     </div>
