@@ -22,7 +22,7 @@ function SinglePost() {
   }
   return (
     <div style={{ marginLeft: 5 }}>
-      <h1>{post.title}</h1>
+      <h1 style={{ textAlign: 'center' }}>{post.title}</h1>
       <p>{post.text}</p>
     </div>
   );

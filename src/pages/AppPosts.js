@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import postService from '../services/PostService';
 
 function AppPosts() {
@@ -17,13 +18,17 @@ function AppPosts() {
     <div style={{ marginLeft: 5 }}>
       <h2>My posts</h2>
       {posts.map((post) => (
-        <div key={post.id} style={{ border: '3px solid orange', width: 300 }}>
+        <div
+          key={post.id}
+          style={{ border: '3px solid orange', width: 300, marginTop: 15 }}
+        >
           <p>
             <strong>Title:</strong> {post.title}
           </p>
           <p>
             <strong>Text:</strong> {post.text}
           </p>
+          <Link to={`/posts/${post.id}`}>View post</Link>
         </div>
       ))}
     </div>
