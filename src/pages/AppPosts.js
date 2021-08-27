@@ -5,6 +5,15 @@ import postService from '../services/PostService';
 function AppPosts() {
   const [posts, setPosts] = useState([]);
   const history = useHistory();
+
+  const handleDelete = async (id) => {
+    const data = await postService.delete(id);
+
+    if (data.count) {
+      setPosts(posts.filter((post) => post.id !== id));
+    }
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       const data = await postService.getAll();
@@ -36,6 +45,7 @@ function AppPosts() {
           </p>
           <Link to={`/posts/${post.id}`}>View post</Link>
           <button onClick={() => history.push(`/edit/${post.id}`)}>Edit</button>
+          <button onClick={() => handleDelete(post.id)}>Delete</button>
         </div>
       ))}
     </div>
