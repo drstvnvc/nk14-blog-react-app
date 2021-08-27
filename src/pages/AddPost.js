@@ -31,6 +31,8 @@ function AddPost() {
         onSubmit={handleSubmit}
       >
         <input
+          required
+          minLength={2}
           value={newPost.title}
           placeholder='Title'
           onChange={({ target }) =>
@@ -38,6 +40,8 @@ function AddPost() {
           }
         />
         <input
+          required
+          maxLength={300}
           value={newPost.text}
           placeholder='Text'
           onChange={({ target }) =>
