@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import AppPosts from './pages/AppPosts';
+import SinglePost from './pages/SinglePost';
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route exact path='/'>
             <AppPosts />
+          </Route>
+          <Route exact path='/posts/:id'>
+            <SinglePost />
           </Route>
         </Switch>
       </Router>
