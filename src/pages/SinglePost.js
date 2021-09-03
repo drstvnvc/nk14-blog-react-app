@@ -8,7 +8,7 @@ function SinglePost() {
   const [post, setPost] = useState({});
   const { id } = useParams();
   const formattedDate = useFormattedDate(
-    post ? post.createdAt : '',
+    post ? post.created_at : '',
     'yyyy-MM-dd'
   );
 
@@ -36,7 +36,7 @@ function SinglePost() {
       <h1 style={{ textAlign: 'center' }}>{post.title}</h1>
       <p>{post.text}</p>
       <p>Datum: {formattedDate}</p>
-      <p>Datum: {post.createdAt}</p>
+      <p>Datum: {post.created_at}</p>
       <AddComment
         postId={post.id}
         addNewCommentCallback={handleAddNewComment}

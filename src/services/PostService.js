@@ -1,15 +1,15 @@
-import axios from 'axios';
+import HttpService from "./HttpService";
 
-class PostService {
-  constructor() {
-    this.client = axios.create({
-      baseURL: 'http://localhost:8000/api',
-    });
-  }
-
+class PostService extends HttpService {
   async getAll() {
     try {
-      const { data } = await this.client.get('posts');
+      const token = localStorage.getItem("token");
+      console.log("token je", { token });
+      const { data } = await this.client.get("posts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       return data;
     } catch (error) {
@@ -35,7 +35,7 @@ class PostService {
 
   async add(newPost) {
     try {
-      const { data } = await this.client.post('posts', newPost);
+      const { data } = await this.client.post("posts", newPost);
 
       return data;
     } catch (error) {

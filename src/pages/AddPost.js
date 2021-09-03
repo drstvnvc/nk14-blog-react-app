@@ -31,7 +31,7 @@ function AddPost() {
 
   useEffect(() => {
     const fetchPost = async () => {
-      const { id: _, createdAt, ...restData } = await postService.get(id);
+      const { id: _, created_at, ...restData } = await postService.get(id);
 
       setNewPost(restData);
     };
