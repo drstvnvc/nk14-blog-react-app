@@ -8,3 +8,9 @@ const store = configureStore({
 });
 
 export default store;
+
+// function configureStore(options) {
+//   const rootReducer = combineReducers(options.reducer);
+//   const store = createStore(rootReducer);
+//   return store;
+// }
