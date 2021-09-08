@@ -1,22 +1,28 @@
 import HttpService from "./HttpService";
 
 class AuthService extends HttpService {
-  async login(credentials) {
+  login = async (credentials) => {
     try {
       const { data } = await this.client.post("/auth/login", credentials);
       const { token, user } = data;
 
       localStorage.setItem("token", token);
-      return user;
+      return { token, user };
     } catch (error) {
       alert("Invalid credentials");
+      throw error;
     }
-  }
+  };
 
-  async logout() {
-    await this.client.post('/auth/logout');
-    localStorage.removeItem('token');
-  }
+  logout = async () => {
+    await this.client.post("/auth/logout");
+    localStorage.removeItem("token");
+  };
+
+  getActiveUser = async () => {
+    const { data } = await this.client.get("/auth/me");
+    return data;
+  };
 }
 
 export default new AuthService();

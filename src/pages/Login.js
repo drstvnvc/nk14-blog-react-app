@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import AuthService from "../services/AuthService";
+import { useDispatch, useSelector } from "react-redux";
+import { selectActiveUser, login } from "../store/activeUser";
 
 export default function Login() {
   const [credentials, setCredentials] = useState({
@@ -7,22 +8,31 @@ export default function Login() {
     password: "",
   });
 
+  const activeUser = useSelector(selectActiveUser);
+
+  const dispatch = useDispatch();
+
   async function handleSubmit(evt) {
     evt.preventDefault();
-    console.log("submit login", credentials);
-    const user = await AuthService.login(credentials);
-    console.log("logged in as", user);
+
+    dispatch(
+      login({
+        email: "Brankjmkjdo18@gmail.com",
+        password: "asdfasdf",
+      })
+    );
   }
 
   return (
     <div>
       <h2>Login</h2>
+      {activeUser ? <h3>{activeUser.name}</h3> : <h3>GUEST</h3>}
       <form
         style={{ display: "flex", flexDirection: "column", width: 300 }}
         onSubmit={handleSubmit}
       >
         <input
-          required
+          // required
           type="email"
           placeholder="Email"
           value={credentials.email}
@@ -31,7 +41,7 @@ export default function Login() {
           }
         />
         <input
-          required
+          // required
           type="password"
           placeholder="Password"
           value={credentials.password}

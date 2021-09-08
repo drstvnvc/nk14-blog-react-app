@@ -4,7 +4,6 @@ class PostService extends HttpService {
   async getAll() {
     try {
       const token = localStorage.getItem("token");
-      console.log("token je", { token });
       const { data } = await this.client.get("posts", {
         headers: {
           Authorization: `Bearer ${token}`,

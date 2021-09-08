@@ -8,7 +8,6 @@ import { login } from "../store/activeUser/slice";
 function AppPosts() {
   const [posts, setPosts] = useState([]);
   const activeUser = useSelector(selectActiveUser);
-  console.log("active user selector u app posts", activeUser);
 
   const dispatch = useDispatch();
 

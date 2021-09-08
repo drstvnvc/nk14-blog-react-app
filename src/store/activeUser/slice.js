@@ -1,21 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const middlewareActions = {
+  login() {},
+  logout() {},
+  getActiveUser() {},
+};
+
 const activeUserSlice = createSlice({
   name: "activeUser",
-  initialState: { value: null },
+  initialState: {
+    token: localStorage.getItem("token"),
+    user: null,
+    loginError: false
+  },
   reducers: {
-    logout(state) {
-      state.value = null;
+    setActiveUser(state, action) {
+      state.user = action.payload;
     },
-    login(state, action) {
-        console.log(action)
-      state.value = action.payload;
+    setToken(state, action) {
+      state.token = action.payload;
     },
+    ...middlewareActions,
   },
 });
 
-console.log("akcije", activeUserSlice.actions);
-console.log("reducer", activeUserSlice.reducer);
-
-export const { login, logout } = activeUserSlice.actions;
+export const { login, logout, setActiveUser, setToken, getActiveUser } =
+  activeUserSlice.actions;
 export default activeUserSlice.reducer;

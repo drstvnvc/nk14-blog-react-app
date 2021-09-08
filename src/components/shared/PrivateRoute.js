@@ -1,10 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router";
+import { selectIsAuthenticated } from "../../store/activeUser/selectors";
 
 export default function PrivateRoute({ children, ...props }) {
-  const token = localStorage.getItem("token");
-  console.log('Private route::token', token)
-  const isAuthenticated = !!token;
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   return (
     <Route {...props}>
